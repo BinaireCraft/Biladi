@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biladi Jewellery | Bijoux personnalisés à Lubumbashi</title>
+  <meta name="description" content="Biladi Jewellery est une boutique de bijoux, montres et gravures personnalisées à Lubumbashi. Commandes sur mesure, coffrets cadeaux et livraison selon disponibilité." />
+  <meta name="theme-color" content="#f6f0e6" />
+
+  <style>
+    :root{
+      --bg:#f6f0e6;
+      --paper:#fffaf2;
+      --paper2:#ffffff;
+      --ink:#201b16;
+      --ink2:#51483d;
+      --muted:#7d7265;
+      --line:rgba(32,27,22,.12);
+      --gold:#b88a44;
+      --gold2:#d8b36a;
+      --sand:#e7d8c1;
+      --soft:#f1e7d7;
+      --green:#1d6b45;
+      --danger:#9a2d2d;
+      --shadow:0 22px 60px rgba(32,27,22,.12);
+      --shadow2:0 10px 26px rgba(32,27,22,.08);
+      --radius:24px;
+      --max:1180px;
+      --sans:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      --serif:Georgia, "Times New Roman", serif;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--sans);
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    body.menu-open{overflow:hidden}
+    img{width:100%;display:block;object-fit:cover}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    a{text-decoration:none;color:inherit}
+    .container{width:min(var(--max),92%);margin-inline:auto}
+
+    .site-header{
+      position:sticky;top:0;z-index:1000;
+      background:rgba(246,240,230,.92);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:22px;
+    }
+    .logo{
+      display:flex;align-items:center;gap:12px;
+      min-width:max-content;
+    }
+    .logo-badge{
+      width:48px;height:48px;border-radius:50%;
+      background:radial-gradient(circle at 35% 30%,#fff 0,#fff7e9 48%,#e4cfad 100%);
+      border:1px solid rgba(184,138,68,.45);
+      display:grid;place-items:center;
+      box-shadow:0 10px 24px rgba(184,138,68,.18);
+      font-family:var(--serif);
+      color:var(--gold);
+      letter-spacing:.06em;
+      font-weight:700;
+    }
+    .logo-text strong{
+      display:block;
+      font-family:var(--serif);
+      font-size:1.1rem;
+      line-height:1;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+    }
+    .logo-text small{color:var(--muted);font-size:.76rem}
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:4px;
+      list-style:none;
+    }
+    .nav-links button{
+      border:0;background:transparent;color:var(--ink2);
+      padding:10px 11px;border-radius:999px;
+      font-size:.92rem;
+      transition:.25s ease;
+      white-space:nowrap;
+    }
+    .nav-links button:hover,.nav-links button.active{
+      background:#201b16;color:#fff7ec;
+    }
+    .nav-actions{display:flex;align-items:center;gap:10px}
+
+    .btn{
+      border:0;
+      border-radius:999px;
+      min-height:46px;
+      padding:0 21px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      font-weight:700;
+      transition:.25s ease;
+      text-align:center;
+      line-height:1.2;
+    }
+    .btn-dark{background:#201b16;color:#fff7ec;box-shadow:0 12px 28px rgba(32,27,22,.16)}
+    .btn-dark:hover{transform:translateY(-2px);background:#070604}
+    .btn-gold{background:var(--gold);color:#fff;box-shadow:0 14px 30px rgba(184,138,68,.25)}
+    .btn-gold:hover{transform:translateY(-2px);background:#9f7436}
+    .btn-light{background:rgba(255,255,255,.88);color:#1f1b16;border:1px solid rgba(255,255,255,.55)}
+    .btn-light:hover{transform:translateY(-2px);background:#fff}
+    .btn-outline{background:transparent;color:var(--ink);border:1px solid var(--line)}
+    .btn-outline:hover{background:#201b16;color:#fff7ec}
+
+    .menu-toggle{
+      display:none;
+      width:46px;height:46px;border-radius:50%;
+      border:1px solid var(--line);
+      background:var(--paper2);
+      position:relative;
+    }
+    .menu-toggle span{
+      position:absolute;left:13px;width:20px;height:2px;
+      background:#201b16;border-radius:4px;transition:.25s ease;
+    }
+    .menu-toggle span:nth-child(1){top:15px}
+    .menu-toggle span:nth-child(2){top:22px}
+    .menu-toggle span:nth-child(3){top:29px}
+    .menu-toggle.open span:nth-child(1){top:22px;transform:rotate(45deg)}
+    .menu-toggle.open span:nth-child(2){opacity:0}
+    .menu-toggle.open span:nth-child(3){top:22px;transform:rotate(-45deg)}
+
+    .page{display:none;animation:pageIn .35s ease both}
+    .page.active{display:block}
+    @keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+    .hero{
+      min-height:calc(100vh - 76px);
+      display:grid;
+      align-items:center;
+      position:relative;
+      background-size:cover;
+      background-position:center;
+      color:#fff8ec;
+      overflow:hidden;
+      isolation:isolate;
+    }
+    .hero:before{
+      content:"";position:absolute;inset:0;z-index:-2;
+      background:linear-gradient(90deg,rgba(18,15,13,.82),rgba(18,15,13,.48) 48%,rgba(18,15,13,.12));
+    }
+    .hero:after{
+      content:"";position:absolute;inset:auto 0 0 0;height:160px;z-index:-1;
+      background:linear-gradient(transparent,var(--bg));
+    }
+    .hero .container{padding-block:70px 120px}
+    .hero-card{
+      width:min(720px,100%);
+    }
+    .label{
+      display:inline-flex;align-items:center;gap:9px;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(255,255,255,.1);
+      backdrop-filter:blur(12px);
+      color:#e7c684;
+      border-radius:999px;
+      padding:7px 12px;
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+    .hero h1{
+      font-family:var(--serif);
+      font-weight:600;
+      font-size:clamp(2.45rem,6vw,5.5rem);
+      line-height:.98;
+      letter-spacing:-.05em;
+      max-width:850px;
+      margin-bottom:22px;
+    }
+    .hero p{
+      max-width:650px;
+      color:rgba(255,248,236,.86);
+      font-size:clamp(1rem,1.8vw,1.15rem);
+      margin-bottom:30px;
+    }
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+
+    .hero-home{background-image:url('https://images.unsplash.com/photo-1617038220319-276d3cfab638?auto=format&fit=crop&w=1800&q=82')}
+    .hero-catalogue{background-image:url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1800&q=82')}
+    .hero-gravure{background-image:url('https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=1800&q=82')}
+    .hero-cadeaux{background-image:url('https://images.unsplash.com/photo-1512163143273-bde0e3cc7407?auto=format&fit=crop&w=1800&q=82')}
+    .hero-galerie{background-image:url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1800&q=82')}
+    .hero-livraison{background-image:url('https://images.unsplash.com/photo-1607083206968-13611e3d76db?auto=format&fit=crop&w=1800&q=82')}
+    .hero-contact{background-image:url('https://images.unsplash.com/photo-1506630448388-4e683c67ddb0?auto=format&fit=crop&w=1800&q=82')}
+
+    section.block{padding:88px 0}
+    .section-head{
+      display:flex;align-items:end;justify-content:space-between;
+      gap:28px;margin-bottom:32px;
+    }
+    .section-head.center{display:block;text-align:center;max-width:760px;margin-inline:auto}
+    .section-head.center p{margin-inline:auto}
+    .kicker{
+      color:var(--gold);
+      text-transform:uppercase;
+      letter-spacing:.14em;
+      font-weight:900;
+      font-size:.78rem;
+      margin-bottom:9px;
+    }
+    .section-head h2,.title-serif{
+      font-family:var(--serif);
+      font-weight:600;
+      line-height:1.05;
+      letter-spacing:-.04em;
+    }
+    .section-head h2{font-size:clamp(2rem,4vw,3.5rem)}
+    .section-head p{max-width:540px;color:var(--muted)}
+
+    .grid{display:grid;gap:20px}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .grid-4{grid-template-columns:repeat(4,1fr)}
+    .span-2{grid-column:span 2}
+
+    .card{
+      background:rgba(255,250,242,.86);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow2);
+      overflow:hidden;
+      transition:.25s ease;
+    }
+    .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+    .card-body{padding:24px}
+    .card h3{font-family:var(--serif);font-size:1.35rem;line-height:1.15;margin-bottom:10px;letter-spacing:-.02em}
+    .card p{color:var(--muted)}
+
+    .mini-card{padding:26px;min-height:210px;background:linear-gradient(140deg,#fffaf2,#f4ead9)}
+    .mini-card .num{
+      width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+      background:#201b16;color:#fff7ec;font-size:.9rem;font-weight:800;margin-bottom:22px;
+    }
+
+    .story-panel{
+      display:grid;grid-template-columns:.95fr 1.05fr;
+      border-radius:34px;overflow:hidden;
+      background:#201b16;color:#fff7ec;box-shadow:var(--shadow);
+    }
+    .story-image{min-height:510px}
+    .story-image img{height:100%}
+    .story-content{padding:clamp(34px,6vw,70px);display:flex;flex-direction:column;justify-content:center}
+    .story-content h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3.6rem);line-height:1.03;letter-spacing:-.04em;margin-bottom:18px}
+    .story-content p{color:rgba(255,248,236,.78);margin-bottom:18px}
+    .story-points{display:grid;gap:12px;margin:18px 0 28px}
+    .story-points div{display:flex;gap:10px;align-items:flex-start;color:#fff0d8}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--gold2);margin-top:9px;flex:0 0 auto}
+
+    .collection{
+      position:relative;height:420px;border-radius:28px;overflow:hidden;box-shadow:var(--shadow2);background:#ddd;
+    }
+    .collection img{height:100%;transition:.5s ease}
+    .collection:hover img{transform:scale(1.05)}
+    .collection-caption{
+      position:absolute;inset:auto 0 0 0;color:#fff;
+      padding:30px;
+      background:linear-gradient(transparent,rgba(0,0,0,.78));
+    }
+    .collection-caption small{color:#e7c684;font-weight:900;text-transform:uppercase;letter-spacing:.12em}
+    .collection-caption h3{font-family:var(--serif);font-size:1.9rem;line-height:1.05;margin-top:7px}
+
+    .steps{counter-reset:step}
+    .step{position:relative;padding:26px;background:var(--paper2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+    .step:after{
+      counter-increment:step;content:"0" counter(step);
+      position:absolute;right:18px;top:8px;
+      font-family:var(--serif);font-size:5rem;color:rgba(184,138,68,.12);line-height:1;
+    }
+    .step h3,.step p{position:relative;z-index:1}
+    .step h3{font-family:var(--serif);font-size:1.35rem;margin-bottom:8px}
+    .step p{color:var(--muted)}
+
+    .reviews{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+    .review{padding:28px;border-radius:var(--radius);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow2)}
+    .review p{font-family:var(--serif);font-size:1.12rem;color:#3b3027;margin-bottom:20px;line-height:1.5}
+    .review strong{font-size:.95rem}
+    .review span{display:block;color:var(--muted);font-size:.88rem;margin-top:2px}
+
+    .filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+    .filter-btn{border:1px solid var(--line);background:#fff8ed;color:#40372e;border-radius:999px;padding:11px 17px;font-weight:800;transition:.22s ease}
+    .filter-btn:hover,.filter-btn.active{background:#201b16;color:#fff7ec}
+    .product-card{display:flex;flex-direction:column;background:#fff}
+    .product-img{height:275px;background:#eadcc7;overflow:hidden}
+    .product-img img{height:100%;transition:.45s ease}
+    .product-card:hover .product-img img{transform:scale(1.04)}
+    .product-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px;color:var(--muted);font-size:.86rem}
+    .tag{display:inline-flex;border-radius:999px;background:#f4ead9;color:#9b6d2e;border:1px solid rgba(184,138,68,.2);padding:6px 10px;font-size:.76rem;font-weight:900;white-space:nowrap}
+    .product-card .btn{width:100%;margin-top:18px}
+
+    .modal{
+      position:fixed;inset:0;z-index:3000;
+      background:rgba(15,12,10,.68);
+      display:none;align-items:center;justify-content:center;
+      padding:22px;
+    }
+    .modal.active{display:flex}
+    .modal-box{
+      width:min(820px,100%);max-height:min(88vh,760px);overflow:auto;
+      border-radius:30px;background:var(--bg);box-shadow:0 32px 90px rgba(0,0,0,.34);
+      animation:modalIn .22s ease both;
+    }
+    @keyframes modalIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+    .modal-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:16px;background:#fffaf2;border-bottom:1px solid var(--line);padding:18px 22px}
+    .modal-head h3{font-family:var(--serif);font-size:1.55rem;line-height:1.15}
+    .close-btn{border:1px solid var(--line);background:#fff;border-radius:50%;width:42px;height:42px;font-size:1.45rem;line-height:1}
+    .modal-body{padding:24px;display:grid;grid-template-columns:290px 1fr;gap:24px}
+    .modal-body img{height:330px;border-radius:22px;background:#e9dcc8}
+    .modal-body p{color:var(--muted);margin:14px 0}
+    .details{display:grid;gap:10px;margin:18px 0}
+    .details div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;color:#51483d}
+
+    .configurator{
+      display:grid;grid-template-columns:1.08fr .92fr;
+      background:#fffaf2;border:1px solid var(--line);border-radius:32px;overflow:hidden;box-shadow:var(--shadow);
+    }
+    .form-panel{padding:clamp(26px,5vw,46px)}
+    .preview-panel{
+      padding:clamp(26px,5vw,46px);
+      min-height:520px;
+      display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+      color:#fff7ec;
+      background:linear-gradient(rgba(24,19,15,.72),rgba(24,19,15,.72)),url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1000&q=82') center/cover;
+    }
+    .engrave-circle{
+      width:min(310px,82vw);aspect-ratio:1/1;border-radius:50%;
+      border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);
+      display:grid;place-items:center;padding:34px;margin-bottom:24px;backdrop-filter:blur(10px);
+      box-shadow:inset 0 0 60px rgba(255,255,255,.08);
+    }
+    #previewText{font-family:var(--serif);font-size:clamp(1.45rem,4vw,2.2rem);line-height:1.1;color:#e0bc75;word-break:break-word}
+    .preview-panel p{color:rgba(255,248,236,.78);max-width:380px}
+
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .field{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+    .field.full{grid-column:1/-1}
+    label{font-weight:800;font-size:.9rem;color:#41362c}
+    input,select,textarea{
+      border:1px solid var(--line);background:#fff;border-radius:16px;
+      padding:13px 14px;outline:0;color:#211b16;transition:.2s ease;
+    }
+    input:focus,select:focus,textarea:focus{border-color:rgba(184,138,68,.8);box-shadow:0 0 0 4px rgba(184,138,68,.12)}
+    textarea{min-height:120px;resize:vertical}
+    .form-error{display:none;color:var(--danger);font-weight:700;font-size:.9rem;margin:2px 0 14px}
+    .form-error.show{display:block}
+    .success-note{display:none;background:#e9f4ed;color:#19583a;border:1px solid rgba(29,107,69,.18);padding:12px 14px;border-radius:16px;margin-bottom:14px;font-weight:700}
+    .success-note.show{display:block}
+
+    .occasion-card img{height:190px}
+    .advice{padding:30px;background:linear-gradient(140deg,#fff,#f3e7d5);border:1px solid var(--line);border-radius:var(--radius)}
+    .advice h3{font-family:var(--serif);font-size:1.35rem;margin-bottom:10px}
+    .advice p{color:var(--muted)}
+
+    .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:240px;gap:16px}
+    .gallery-item{position:relative;border-radius:24px;overflow:hidden;box-shadow:var(--shadow2);background:#e6d8c4}
+    .gallery-item.large{grid-column:span 2;grid-row:span 2}
+    .gallery-item.tall{grid-row:span 2}
+    .gallery-item img{height:100%;transition:.45s ease}
+    .gallery-item:hover img{transform:scale(1.04)}
+    .gallery-caption{position:absolute;inset:auto 0 0 0;padding:18px;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.78));font-weight:800;transform:translateY(10px);opacity:0;transition:.25s ease}
+    .gallery-item:hover .gallery-caption{opacity:1;transform:translateY(0)}
+
+    .event-panel{display:grid;grid-template-columns:.9fr 1.1fr;background:#fff;border:1px solid var(--line);border-radius:32px;overflow:hidden;box-shadow:var(--shadow)}
+    .event-panel img{height:100%;min-height:420px}
+    .event-copy{padding:clamp(32px,5vw,60px);display:flex;flex-direction:column;justify-content:center}
+    .event-copy h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3.3rem);line-height:1.05;letter-spacing:-.04em;margin-bottom:16px}
+    .event-copy p{color:var(--muted);margin-bottom:18px}
+
+    .timeline{display:grid;gap:16px}
+    .timeline-item{display:grid;grid-template-columns:52px 1fr;gap:16px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow2)}
+    .timeline-num{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:#201b16;color:#fff7ec;font-weight:900}
+    .timeline-item h3{font-family:var(--serif);font-size:1.25rem;margin-bottom:6px}
+    .timeline-item p{color:var(--muted)}
+
+    .faq{display:grid;gap:12px}
+    .faq-item{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow2)}
+    .faq-q{width:100%;border:0;background:transparent;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 22px;font-weight:900;color:#201b16}
+    .faq-q span:last-child{font-size:1.4rem;color:var(--gold)}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease}
+    .faq-a p{padding:0 22px 20px;color:var(--muted)}
+
+    .care-list{display:grid;gap:12px}
+    .care-list div{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;color:#5c5147}
+    .check{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#201b16;color:#fff7ec;font-size:.75rem;font-weight:900;flex:0 0 auto;margin-top:2px}
+
+    .contact-layout{display:grid;grid-template-columns:1.12fr .88fr;gap:22px;align-items:start}
+    .contact-card,.contact-side{background:#fffaf2;border:1px solid var(--line);border-radius:30px;padding:clamp(26px,5vw,44px);box-shadow:var(--shadow)}
+    .contact-side{position:sticky;top:100px;display:grid;gap:14px}
+    .info{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px}
+    .info small{display:block;color:var(--muted);font-weight:700;margin-bottom:4px}
+    .info strong{font-size:1.02rem}
+
+    .cta-band{
+      border-radius:34px;overflow:hidden;
+      background:linear-gradient(90deg,rgba(32,27,22,.88),rgba(32,27,22,.58)),url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1600&q=82') center/cover;
+      color:#fff7ec;box-shadow:var(--shadow);padding:54px;
+      display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+    }
+    .cta-band h2{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);line-height:1.05;letter-spacing:-.04em;max-width:760px}
+
+    .site-footer{margin-top:80px;background:#201b16;color:#fff7ec;padding:64px 0 26px}
+    .footer-grid{display:grid;grid-template-columns:1.25fr .7fr .7fr .95fr;gap:34px;margin-bottom:36px}
+    .site-footer h3,.site-footer h4{font-family:var(--serif);margin-bottom:14px}
+    .site-footer p,.site-footer a,.site-footer button,.site-footer li{color:rgba(255,248,236,.72);font-size:.95rem}
+    .site-footer button{display:block;background:transparent;border:0;text-align:left;margin-bottom:9px}
+    .site-footer a:hover,.site-footer button:hover{color:#e0bc75}
+    .site-footer ul{list-style:none;display:grid;gap:9px}
+    .footer-bottom{border-top:1px solid rgba(255,248,236,.12);padding-top:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:rgba(255,248,236,.62);font-size:.9rem}
+
+    .whatsapp-float,.top-btn{
+      position:fixed;right:18px;z-index:2100;border:0;box-shadow:0 16px 34px rgba(32,27,22,.28);transition:.22s ease;
+    }
+    .whatsapp-float{bottom:20px;background:var(--green);color:#fff;border-radius:999px;padding:13px 18px;font-weight:900}
+    .top-btn{bottom:78px;background:#201b16;color:#fff7ec;width:44px;height:44px;border-radius:50%;display:none;place-items:center;font-size:1.1rem}
+    .top-btn.show{display:grid}
+    .whatsapp-float:hover,.top-btn:hover{transform:translateY(-2px)}
+
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    @media(max-width:1080px){
+      .grid-4{grid-template-columns:repeat(2,1fr)}
+      .grid-3{grid-template-columns:repeat(2,1fr)}
+      .reviews{grid-template-columns:1fr 1fr}
+      .story-panel,.configurator,.event-panel,.contact-layout{grid-template-columns:1fr}
+      .contact-side{position:static}
+      .gallery-grid{grid-template-columns:repeat(2,1fr)}
+      .footer-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media(max-width:900px){
+      .nav-links{
+        position:fixed;left:4%;right:4%;top:86px;
+        display:none;flex-direction:column;align-items:stretch;gap:4px;
+        background:#fffaf2;border:1px solid var(--line);border-radius:24px;padding:14px;box-shadow:var(--shadow);
+        max-height:calc(100vh - 140px);overflow:auto;
+      }
+      .nav-links.open{display:flex}
+      .nav-links button{width:100%;text-align:left;padding:14px 15px;border-radius:15px}
+      .nav-actions .btn{display:none}
+      .menu-toggle{display:block}
+      .hero{min-height:calc(100vh - 76px)}
+      .section-head{display:block}
+      .section-head p{margin-top:13px}
+      .modal-body{grid-template-columns:1fr}
+      .modal-body img{height:280px}
+    }
+
+    @media(max-width:640px){
+      .nav{height:70px}
+      .logo-badge{width:42px;height:42px}
+      .logo-text strong{font-size:.96rem}
+      .logo-text small{font-size:.72rem}
+      .hero{min-height:72vh}
+      .hero .container{padding-block:58px 92px}
+      section.block{padding:64px 0}
+      .grid-2,.grid-3,.grid-4,.reviews{grid-template-columns:1fr}
+      .span-2{grid-column:auto}
+      .collection{height:345px}
+      .story-image{min-height:340px}
+      .form-grid{grid-template-columns:1fr}
+      .gallery-grid{grid-template-columns:1fr;grid-auto-rows:270px}
+      .gallery-item.large,.gallery-item.tall{grid-column:auto;grid-row:auto}
+      .cta-band{padding:34px 24px}
+      .footer-grid{grid-template-columns:1fr}
+      .modal{padding:14px}
+      .modal-head h3{font-size:1.25rem}
+      .whatsapp-float{right:12px;bottom:14px;padding:12px 14px;font-size:.9rem}
+      .top-btn{right:12px;bottom:70px}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="container nav" aria-label="Navigation principale">
+      <a class="logo" href="#accueil" data-route="accueil" aria-label="Accueil Biladi Jewellery">
+        <span class="logo-badge">BJ</span>
+        <span class="logo-text"><strong>Biladi</strong><small>Jewellery</small></span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><button class="nav-btn active" data-route="accueil">Accueil</button></li>
+        <li><button class="nav-btn" data-route="catalogue">Catalogue</button></li>
+        <li><button class="nav-btn" data-route="gravure">Gravure</button></li>
+        <li><button class="nav-btn" data-route="cadeaux">Cadeaux</button></li>
+        <li><button class="nav-btn" data-route="galerie">Galerie</button></li>
+        <li><button class="nav-btn" data-route="livraison">Livraison</button></li>
+        <li><button class="nav-btn" data-route="contact">Contact</button></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="btn btn-gold" data-route="contact" data-scroll="commande">Commander</button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page active" id="accueil">
+      <div class="hero hero-home">
+        <div class="container">
+          <div class="hero-card">
+            <span class="label">Bijoux personnalisés à Lubumbashi</span>
+            <h1>Des bijoux qui gardent vos souvenirs près de vous.</h1>
+            <p>Biladi Jewellery propose des bijoux, montres et gravures personnalisées en inox, or et argent. Choisissez votre pièce, ajoutez un prénom, une date ou un message, puis confirmez votre commande sur WhatsApp.</p>
+            <div class="hero-actions">
+              <button class="btn btn-gold" data-route="contact" data-scroll="commande">Commander un bijou</button>
+              <button class="btn btn-light" data-route="catalogue">Voir le catalogue</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="block">
+        <div class="container">
+          <div class="section-head center reveal">
+            <div class="kicker">L’essentiel</div>
+            <h2>Une commande simple, un rendu personnel.</h2>
+            <p>Le site met en avant ce que les clients recherchent déjà sur Instagram : de beaux cadeaux, une gravure propre, un délai clair et un contact direct.</p>
+          </div>
+          <div class="grid grid-4">
+            <article class="card mini-card reveal"><span class="num">01</span><h3>Bijoux personnalisés</h3><p>Colliers, bracelets, bagues, montres et coffrets à personnaliser selon l’occasion.</p></article>
+            <article class="card mini-card reveal"><span class="num">02</span><h3>Gravure sur mesure</h3><p>Prénoms, dates, initiales, messages courts ou symboles selon le bijou choisi.</p></article>
+            <article class="card mini-card reveal"><span class="num">03</span><h3>Commande WhatsApp</h3><p>Le client envoie directement ses détails pour confirmer le modèle, le prix et le délai.</p></article>
+            <article class="card mini-card reveal"><span class="num">04</span><h3>24 à 48h</h3><p>Délai annoncé selon la disponibilité, la personnalisation et la destination.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="container">
+          <div class="section-head reveal">
+            <div><div class="kicker">Collections</div><h2>Les demandes les plus courantes.</h2></div>
+            <p>Des pièces faciles à offrir, élégantes et adaptées aux occasions importantes.</p>
+          </div>
+          <div class="grid grid-3">
+            <article class="collection reveal" data-route="catalogue">
+              <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=82" alt="Collier personnalisé Biladi Jewellery" />
+              <div class="collection-caption"><small>Colliers</small><h3>Prénoms et dates importantes</h3></div>
+            </article>
+            <article class="collection reveal" data-route="catalogue">
+              <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=900&q=82" alt="Bracelet personnalisé" />
+              <div class="collection-caption"><small>Bracelets</small><h3>Gravure fine et discrète</h3></div>
+            </article>
+            <article class="collection reveal" data-route="catalogue">
+              <img src="https://images.unsplash.com/photo-1512163143273-bde0e3cc7407?auto=format&fit=crop&w=900&q=82" alt="Coffret cadeau bijoux" />
+              <div class="collection-caption"><small>Coffrets</small><h3>Cadeaux prêts à offrir</h3></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="container">
+          <div class="story-panel reveal">
+            <div class="story-image"><img src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&w=1000&q=82" alt="Bijoux élégants et raffinés" /></div>
+            <div class="story-content">
+              <div class="kicker">Comment ça se passe</div>
+              <h2>Du choix du bijou jusqu’à la confirmation.</h2>
+              <p>Le client peut partir d’une idée simple : un prénom, une date, une occasion ou un modèle vu sur Instagram.</p>
+              <div class="story-points">
+                <div><span class="dot"></span><span>Choisir le type de bijou ou demander conseil.</span></div>
+                <div><span class="dot"></span><span>Envoyer le texte exact à graver et la finition souhaitée.</span></div>
+                <div><span class="dot"></span><span>Confirmer la disponibilité, le prix et le délai sur WhatsApp.</span></div>
+              </div>
+              <button class="btn btn-gold" data-route="gravure" data-scroll="configurateur">Préparer ma gravure</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="container">
+          <div class="section-head reveal">
+            <div><div class="kicker">Avis clients</div><h2>Ce que les clients veulent ressentir.</h2></div>
+            <p>Un achat de bijou personnalisé est souvent lié à un souvenir ou à une personne précise.</p>
+          </div>
+          <div class="reviews">
+            <article class="review reveal"><p>“Je voulais un cadeau simple, mais avec une vraie signification. La gravure a rendu le bijou beaucoup plus personnel.”</p><strong>Commande personnalisée</strong><span>Lubumbashi</span></article>
+            <article class="review reveal"><p>“J’ai envoyé les détails sur WhatsApp et on m’a aidée à choisir la finition la plus adaptée.”</p><strong>Cadeau d’anniversaire</strong><span>Bijou gravé</span></article>
+            <article class="review reveal"><p>“Le coffret était propre et prêt à offrir. C’est ce qui donne plus de valeur au cadeau.”</p><strong>Coffret cadeau</strong><span>Commande spéciale</span></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="container">
+          <div class="cta-band reveal">
+            <h2>Envoyez votre idée et recevez une réponse directe sur WhatsApp.</h2>
+            <button class="btn btn-gold" data-route="contact" data-scroll="commande">Faire une demande</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page" id="catalogue">
+      <div class="hero hero-catalogue">
+        <div class="container">
+          <div class="hero-card">
+            <span class="label">Catalogue</span>
+            <h1>Choisissez un bijou, personnalisez-le, confirmez sur WhatsApp.</h1>
+            <p>Les prix sont confirmés selon le modèle, la finition, la gravure et la disponibilité. Chaque fiche permet de lancer une demande claire.</p>
+            <div class="hero-actions">
+              <button class="btn btn-gold" data-route="gravure" data-scroll="configurateur">Créer une gravure</button>
+              <button class="btn btn-light" data-route="contact" data-scroll="commande">Commander</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="block">
+        <div class="container">
+          <div class="section-head reveal">
+            <div><div class="kicker">Produits</div><h2>Catalogue Biladi Jewellery.</h2></div>
+            <p>Filtrez par catégorie. Le bouton de chaque produit ouvre une fiche propre avec les détails et le message WhatsApp.</p>
+          </div>
+          <div class="filters reveal" id="filters">
+            <button class="filter-btn active" data-filter="Tous">Tous</button>
+            <button class="filter-btn" data-filter="Colliers">Colliers</button>
+            <button class="filter-btn" data-filter="Bracelets">Bracelets</button>
+            <button class="filter-btn" data-filter="Bagues">Bagues</button>
+            <button class="filter-btn" data-filter="Montres">Montres</button>
+            <button class="filter-btn" data-filter="Coffrets">Coffrets</button>
+            <button class="filter-btn" data-filter="Gravure">Gravure</button>
+          </div>
+          <div class="grid grid-3" id="productGrid" aria-live="polite"></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page" id="gravure">
+      <div class="hero hero-gravure">
+        <div class="container">
+          <div class="hero-card">
+            <span class="label">Personnalisation</span>
+            <h1>Une gravure nette pour un bijou vraiment personnel.</h1>
+            <p>Indiquez le bijou, la finition, le texte à graver, l’occasion et la ville. L’aperçu vous aide à vérifier le texte avant l’envoi.</p>
+            <div class="hero-actions">
+              <button class="btn btn-gold" data-scroll="configurateur">Préparer ma demande</button>
+              <button class="btn btn-light" data-route="catalogue">Voir les bijoux</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="block">
+        <div class="container">
+          <div class="section-head center reveal">
+            <div class="kicker">Processus</div>
+            <h2>Quatre étapes, sans confusion.</h2>
+            <p>Une demande bien structurée évite les erreurs sur le texte, la finition et le délai.</p>
+          </div>
+          <div class="grid grid-4 steps">
+            <article class="step reveal"><h3>Choisir</h3><p>Collier, bracelet, bague, montre ou coffret selon l’occasion.</p></article>
+            <article class="step reveal"><h3>Écrire</h3><p>Prénom, date, initiales, message court ou symbole à graver.</p></article>
+            <article class="step reveal"><h3>Vérifier</h3><p>Relire l’orthographe, confirmer la matière et la ville.</p></article>
+            <article class="step reveal"><h3>Envoyer</h3><p>La demande part sur WhatsApp avec tous les détails utiles.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="configurateur">
+        <div class="container">
+          <div class="section-head reveal">
+            <div><div class="kicker">Configurateur</div><h2>Préparer une gravure.</h2></div>
+            <p>Remplissez les informations ci-dessous. Le message est automatiquement formaté pour WhatsApp.</p>
+          </div>
+          <div class="configurator reveal">
+            <div class="form-panel">
+              <form id="engravingForm" novalidate>
+                <div class="form-grid">
+                  <div class="field"><label for="engravingType">Type de bijou</label><select id="engravingType" required><option value="">Sélectionner</option><option>Collier</option><option>Bracelet</option><option>Bague</option><option>Montre</option><option>Coffret cadeau</option></select></div>
+                  <div class="field"><label for="engravingMaterial">Matière ou finition</label><select id="engravingMaterial" required><option value="">Sélectionner</option><option>Inox</option><option>Or</option><option>Argent</option><option>À confirmer</option></select></div>
+                  <div class="field full"><label for="engravingText">Texte à graver</label><input id="engravingText" maxlength="45" placeholder="Ex. Sarah 14.02.2026" required /></div>
+                  <div class="field"><label for="engravingOccasion">Occasion</label><select id="engravingOccasion" required><option value="">Sélectionner</option><option>Anniversaire</option><option>Couple</option><option>Mariage</option><option>Fiançailles</option><option>Diplôme</option><option>Saint-Valentin</option><option>Autre</option></select></div>
+                  <div class="field"><label for="engravingCity">Ville de livraison</label><input id="engravingCity" placeholder="Lubumbashi" required /></div>
+                </div>
+                <p class="form-error" id="engravingError">Veuillez compléter les champs obligatoires avant l’envoi.</p>
+                <button class="btn btn-gold" type="submit">Envoyer ma personnalisation sur WhatsApp</button>
+              </form>
+            </div>
+            <div class="preview-panel">
+              <div class="engrave-circle"><span id="previewText">Votre gravure</span></div>
+              <p>Conseil : écrivez le texte exactement comme il doit apparaître sur le bijou.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page" id="cadeaux">
+      <div class="hero hero-cadeaux">
+        <div class="container">
+          <div class="hero-card">
+            <span class="label">Cadeaux</span>
+            <h1>Un bijou personnalisé rend le cadeau plus intime.</h1>
+            <p>Pour un anniversaire, un couple, un mariage, une fiançailles, une réussite ou une surprise, Biladi Jewellery vous aide à choisir une pièce qui porte une intention.</p>
+            <div class="hero-actions"><button class="btn btn-gold" data-route="catalogue">Choisir un cadeau</button><button class="btn btn-light" data-route="contact" data-scroll="commande">Demander conseil</button></div>
+          </div>
+        </div>
+      </div>
+
+      <section class="block">
+        <div class="container">
+          <div class="section-head center reveal"><div class="kicker">Occasions</div><h2>Des idées cadeaux prêtes à personnaliser.</h2><p>Chaque occasion peut être liée à une date, une initiale, un prénom ou un petit message.</p></div>
+          <div class="grid grid-4">
+            <article class="card occasion-card reveal"><img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=700&q=82" alt="Cadeau d’anniversaire" /><div class="card-body"><h3>Anniversaire</h3><p>Prénom, date de naissance ou message court à garder.</p></div></article>
+            <article class="card occasion-card reveal"><img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=700&q=82" alt="Bijoux de couple" /><div class="card-body"><h3>Couple</h3><p>Initiales, date de rencontre ou symboles assortis.</p></div></article>
+            <article class="card occasion-card reveal"><img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=700&q=82" alt="Mariage" /><div class="card-body"><h3>Mariage</h3><p>Une gravure sobre pour une union ou un souvenir.</p></div></article>
+            <article class="card occasion-card reveal"><img src="https://images.unsplash.com/photo-1620656798579-1984d9e87df5?auto=format&fit=crop&w=700&q=82" alt="Fiançailles" /><div class="card-body"><h3>Fiançailles</h3><p>Une pièce raffinée pour marquer une promesse.</p></div></article>
+            <article class="card occasion-card reveal"><img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?auto=format&fit=crop&w=700&q=82" alt="Saint-Valentin" /><div class="card-body"><h3>Saint-Valentin</h3><p>Un bijou délicat avec un détail personnel.</p></div></article>
+            <article class="card occasion-card reveal"><img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=700&q=82" alt="Diplôme" /><div class="card-body"><h3>Diplôme</h3><p>Une année, un nom ou un message de réussite.</p></div></article>
+            <article class="card occasion-card reveal"><img src="https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=700&q=82" alt="Surprise" /><div class="card-body"><h3>Surprise</h3><p>Une attention simple qui devient mémorable.</p></div></article>
+            <article class="card occasion-card reveal"><img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=700&q=82" alt="Cadeau familial" /><div class="card-body"><h3>Famille</h3><p>Un symbole ou un nom qui rappelle les liens proches.</p></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="container">
+          <div class="section-head reveal"><div><div class="kicker">Conseils</div><h2>Choisir selon la personne.</h2></div><p>Un bon cadeau n’est pas forcément compliqué. Il doit surtout être juste.</p></div>
+          <div class="grid grid-4">
+            <article class="advice reveal"><h3>Pour elle</h3><p>Collier fin, bracelet discret, bague avec initiales ou coffret élégant.</p></article>
+            <article class="advice reveal"><h3>Pour lui</h3><p>Montre, bracelet sobre ou gravure courte avec une signification personnelle.</p></article>
+            <article class="advice reveal"><h3>Pour un couple</h3><p>Deux pièces assorties avec date, initiales ou phrase complémentaire.</p></article>
+            <article class="advice reveal"><h3>Pour un événement</h3><p>Coffret soigné avec une personnalisation liée au moment célébré.</p></article>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page" id="galerie">
+      <div class="hero hero-galerie">
+        <div class="container">
+          <div class="hero-card">
+            <span class="label">Galerie</span>
+            <h1>Un aperçu de l’univers Biladi Jewellery.</h1>
+            <p>Bijoux, coffrets, gravures, emballages et présence en événement : la galerie montre l’esprit raffiné et personnel de la marque.</p>
+            <div class="hero-actions"><button class="btn btn-gold" data-route="contact" data-scroll="commande">Commander une création</button><button class="btn btn-light" data-route="catalogue">Voir le catalogue</button></div>
+          </div>
+        </div>
+      </div>
+
+      <section class="block">
+        <div class="container">
+          <div class="section-head reveal"><div><div class="kicker">Créations</div><h2>Bijoux, coffrets et détails.</h2></div><p>Une grille élégante pour valoriser les produits sans surcharger la page.</p></div>
+          <div class="gallery-grid reveal">
+            <div class="gallery-item large"><img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=82" alt="Bagues et bijoux" /><div class="gallery-caption">Finitions raffinées</div></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=700&q=82" alt="Collier" /><div class="gallery-caption">Colliers personnalisables</div></div>
+            <div class="gallery-item tall"><img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=700&q=82" alt="Bracelet" /><div class="gallery-caption">Bracelets à graver</div></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=700&q=82" alt="Bijoux dorés" /><div class="gallery-caption">Finitions dorées</div></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1603561596112-db1d23f7ce1a?auto=format&fit=crop&w=700&q=82" alt="Montre" /><div class="gallery-caption">Montres et accessoires</div></div>
+            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1512163143273-bde0e3cc7407?auto=format&fit=crop&w=700&q=82" alt="Coffret" /><div class="gallery-caption">Coffrets cadeaux</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="container">
+          <div class="event-panel reveal">
+            <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=82" alt="Présence en événement" />
+            <div class="event-copy">
+              <div class="kicker">Événements</div>
+              <h2>Biladi Jewellery proche de sa clientèle.</h2>
+              <p>La marque peut présenter ses créations lors d’événements, stands et rencontres professionnelles, comme Ubuntu, afin de montrer les bijoux, les coffrets et les possibilités de personnalisation.</p>
+              <p>Cette présence aide les clients à voir les détails, comparer les finitions et commander avec plus de confiance.</p>
+              <button class="btn btn-gold" data-route="contact" data-scroll="commande">Contacter la boutique</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page" id="livraison">
+      <div class="hero hero-livraison">
+        <div class="container">
+          <div class="hero-card">
+            <span class="label">Livraison</span>
+            <h1>Des délais clairs avant la confirmation.</h1>
+            <p>La livraison est possible à Lubumbashi et l’expédition peut être organisée selon la destination. Le délai dépend du modèle, de la gravure et de la disponibilité.</p>
+            <div class="hero-actions"><button class="btn btn-gold" data-route="contact" data-scroll="commande">Demander une livraison</button><button class="btn btn-light" data-route="catalogue">Voir les produits</button></div>
+          </div>
+        </div>
+      </div>
+
+      <section class="block">
+        <div class="container">
+          <div class="section-head center reveal"><div class="kicker">Organisation</div><h2>24 à 48h selon la commande.</h2><p>Le délai est confirmé avant la validation afin d’éviter les malentendus.</p></div>
+          <div class="grid grid-3">
+            <article class="timeline-item reveal"><span class="timeline-num">01</span><div><h3>Demande</h3><p>Vous envoyez le type de bijou, la finition, la gravure et la ville.</p></div></article>
+            <article class="timeline-item reveal"><span class="timeline-num">02</span><div><h3>Confirmation</h3><p>La boutique confirme la disponibilité, le prix et le délai possible.</p></div></article>
+            <article class="timeline-item reveal"><span class="timeline-num">03</span><div><h3>Livraison</h3><p>La remise ou l’expédition est organisée selon la destination convenue.</p></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="container">
+          <div class="section-head reveal"><div><div class="kicker">FAQ</div><h2>Questions fréquentes.</h2></div><p>Les réponses importantes avant de passer commande.</p></div>
+          <div class="faq reveal" id="faq">
+            <div class="faq-item"><button class="faq-q"><span>Est-ce que je peux personnaliser mon bijou ?</span><span>+</span></button><div class="faq-a"><p>Oui. Vous pouvez demander un prénom, une date, des initiales, un message court ou un symbole selon le bijou choisi.</p></div></div>
+            <div class="faq-item"><button class="faq-q"><span>Combien de temps prend une commande ?</span><span>+</span></button><div class="faq-a"><p>Le délai annoncé est généralement de 24 à 48h, selon le modèle, la personnalisation, la disponibilité et la destination.</p></div></div>
+            <div class="faq-item"><button class="faq-q"><span>Est-ce que vous livrez hors Lubumbashi ?</span><span>+</span></button><div class="faq-a"><p>L’expédition peut être organisée selon la destination. Les modalités sont confirmées directement sur WhatsApp.</p></div></div>
+            <div class="faq-item"><button class="faq-q"><span>Quels types de gravures sont possibles ?</span><span>+</span></button><div class="faq-a"><p>Prénoms, dates, initiales, petits messages et symboles peuvent être envisagés selon l’espace disponible sur le bijou.</p></div></div>
+            <div class="faq-item"><button class="faq-q"><span>Comment passer commande ?</span><span>+</span></button><div class="faq-a"><p>Choisissez un produit, remplissez le formulaire ou envoyez directement votre demande sur WhatsApp au +243 900 511 916.</p></div></div>
+            <div class="faq-item"><button class="faq-q"><span>Comment entretenir mon bijou ?</span><span>+</span></button><div class="faq-a"><p>Évitez l’eau, les produits chimiques, les parfums appliqués directement et les frottements. Rangez le bijou dans une pochette sèche.</p></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <div class="container">
+          <div class="grid grid-2">
+            <div class="section-head reveal" style="margin-bottom:0"><div><div class="kicker">Entretien</div><h2>Garder l’éclat plus longtemps.</h2><p>Quelques gestes simples permettent de préserver la finition du bijou au quotidien.</p></div></div>
+            <div class="care-list reveal">
+              <div><span class="check">✓</span><span>Retirer le bijou avant la douche, le sport ou le sommeil.</span></div>
+              <div><span class="check">✓</span><span>Éviter le contact direct avec parfum, crème ou produits ménagers.</span></div>
+              <div><span class="check">✓</span><span>Nettoyer doucement avec un tissu sec et non abrasif.</span></div>
+              <div><span class="check">✓</span><span>Ranger séparément pour éviter les rayures.</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page" id="contact">
+      <div class="hero hero-contact">
+        <div class="container">
+          <div class="hero-card">
+            <span class="label">Contact</span>
+            <h1>Envoyez une commande complète en quelques secondes.</h1>
+            <p>Le formulaire prépare automatiquement un message WhatsApp avec vos informations, le bijou souhaité, la finition et la gravure.</p>
+            <div class="hero-actions"><button class="btn btn-gold" data-scroll="commande">Remplir le formulaire</button><a class="btn btn-light" href="https://wa.me/243900511916" target="_blank" rel="noopener">Écrire directement</a></div>
+          </div>
+        </div>
+      </div>
+
+      <section class="block" id="commande">
+        <div class="container">
+          <div class="section-head reveal"><div><div class="kicker">Commande</div><h2>Formulaire WhatsApp.</h2></div><p>Les champs importants sont vérifiés avant l’ouverture de WhatsApp.</p></div>
+          <div class="contact-layout">
+            <div class="contact-card reveal">
+              <form id="orderForm" novalidate>
+                <div class="form-grid">
+                  <div class="field"><label for="orderName">Nom complet</label><input id="orderName" required /></div>
+                  <div class="field"><label for="orderPhone">Téléphone</label><input id="orderPhone" type="tel" required /></div>
+                  <div class="field"><label for="orderCity">Ville</label><input id="orderCity" required /></div>
+                  <div class="field"><label for="orderType">Type de bijou</label><select id="orderType" required><option value="">Sélectionner</option><option>Collier</option><option>Bracelet</option><option>Bague</option><option>Montre</option><option>Coffret cadeau</option><option>Gravure personnalisée</option></select></div>
+                  <div class="field"><label for="orderMaterial">Matière ou finition</label><select id="orderMaterial" required><option value="">Sélectionner</option><option>Inox</option><option>Or</option><option>Argent</option><option>À confirmer avec la boutique</option></select></div>
+                  <div class="field"><label for="orderOccasion">Occasion</label><select id="orderOccasion" required><option value="">Sélectionner</option><option>Anniversaire</option><option>Couple</option><option>Mariage</option><option>Fiançailles</option><option>Saint-Valentin</option><option>Diplôme</option><option>Surprise</option><option>Cadeau familial</option><option>Autre</option></select></div>
+                  <div class="field"><label for="orderEngraving">Texte à graver</label><input id="orderEngraving" placeholder="Laisser vide si aucune gravure" /></div>
+                  <div class="field"><label for="orderDelay">Délai souhaité</label><select id="orderDelay" required><option value="">Sélectionner</option><option>24h si disponible</option><option>48h si disponible</option><option>Cette semaine</option><option>À confirmer avec la boutique</option></select></div>
+                  <div class="field full"><label for="orderMessage">Message complémentaire</label><textarea id="orderMessage" placeholder="Modèle vu sur Instagram, taille, couleur, style, quantité ou autre précision."></textarea></div>
+                </div>
+                <p class="form-error" id="orderError">Veuillez compléter les champs obligatoires avant l’envoi.</p>
+                <p class="success-note" id="orderSuccess">Votre message est prêt. WhatsApp va s’ouvrir.</p>
+                <button class="btn btn-gold" type="submit">Envoyer la commande sur WhatsApp</button>
+              </form>
+            </div>
+            <aside class="contact-side reveal">
+              <div class="info"><small>WhatsApp</small><strong>+243 900 511 916</strong></div>
+              <div class="info"><small>Instagram</small><strong>@biladi_jewellery</strong></div>
+              <div class="info"><small>Localisation</small><strong>Lubumbashi, RDC</strong></div>
+              <div class="info"><small>TikTok</small><strong>Biladi Jewellery</strong></div>
+              <div class="info"><small>Produits</small><strong>Bijoux, montres, coffrets et gravures personnalisées</strong></div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <div class="modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 id="modalTitle">Produit</h3>
+        <button class="close-btn" id="modalClose" aria-label="Fermer">×</button>
+      </div>
+      <div class="modal-body">
+        <img id="modalImg" src="" alt="" />
+        <div>
+          <span class="tag" id="modalCategory">Catégorie</span>
+          <p id="modalDesc"></p>
+          <div class="details">
+            <div><strong>Finition :</strong> <span id="modalFinish"></span></div>
+            <div><strong>Prix :</strong> confirmé sur demande</div>
+            <div><strong>Délai :</strong> 24 à 48h selon disponibilité et personnalisation</div>
+          </div>
+          <button class="btn btn-gold" id="modalOrder">Demander ce modèle sur WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="top-btn" id="topBtn" aria-label="Retour en haut">↑</button>
+  <a class="whatsapp-float" href="https://wa.me/243900511916?text=Bonjour%20Biladi%20Jewellery%2C%20je%20souhaite%20passer%20une%20commande." target="_blank" rel="noopener">WhatsApp</a>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div><h3>Biladi Jewellery</h3><p>Bijoux, montres, coffrets cadeaux et gravures personnalisées à Lubumbashi. Commandes sur mesure via WhatsApp.</p></div>
+        <div><h4>Pages</h4><button data-route="accueil">Accueil</button><button data-route="catalogue">Catalogue</button><button data-route="gravure">Gravure</button><button data-route="cadeaux">Cadeaux</button></div>
+        <div><h4>Infos</h4><button data-route="galerie">Galerie</button><button data-route="livraison">Livraison</button><button data-route="contact">Contact</button></div>
+        <div><h4>Contact</h4><ul><li>Lubumbashi, RDC</li><li><a href="https://wa.me/243900511916" target="_blank" rel="noopener">+243 900 511 916</a></li><li><a href="https://www.instagram.com/biladi_jewellery" target="_blank" rel="noopener">@biladi_jewellery</a></li></ul></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 Biladi Jewellery. Tous droits réservés.</span><span>Bijoux personnalisés · Gravures · Cadeaux</span></div>
+    </div>
+  </footer>
+
+  <script>
+    const WHATSAPP_NUMBER = "243900511916";
+
+    const products = [
+      {id:"collier-prenom",name:"Collier prénom personnalisé",category:"Colliers",desc:"Un collier élégant pour porter un prénom, des initiales ou une date courte.",finish:"Inox, or ou argent selon disponibilité",img:"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=82"},
+      {id:"bracelet-grave",name:"Bracelet gravé souvenir",category:"Bracelets",desc:"Bracelet raffiné pour une date importante, un prénom ou un message discret.",finish:"Finition dorée, argentée ou inox",img:"https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=900&q=82"},
+      {id:"bague-initiales",name:"Bague avec initiales",category:"Bagues",desc:"Bague sobre avec gravure fine, adaptée aux initiales ou à une date spéciale.",finish:"Or, argent ou inox selon modèle",img:"https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=900&q=82"},
+      {id:"montre-cadeau",name:"Montre élégante",category:"Montres",desc:"Une montre raffinée à offrir, avec personnalisation possible selon le modèle.",finish:"Modèle et finition à confirmer",img:"https://images.unsplash.com/photo-1603561596112-db1d23f7ce1a?auto=format&fit=crop&w=900&q=82"},
+      {id:"coffret-cadeau",name:"Coffret cadeau bijoux",category:"Coffrets",desc:"Coffret soigné pour offrir un bijou personnalisé avec une belle présentation.",finish:"Composition selon la demande",img:"https://images.unsplash.com/photo-1512163143273-bde0e3cc7407?auto=format&fit=crop&w=900&q=82"},
+      {id:"gravure-service",name:"Service de gravure",category:"Gravure",desc:"Gravure de prénom, date, initiales, symbole ou message court sur bijou compatible.",finish:"Selon la surface disponible",img:"https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=900&q=82"},
+      {id:"collier-couple",name:"Colliers couple assortis",category:"Colliers",desc:"Deux colliers coordonnés pour couple avec initiales, date ou symbole commun.",finish:"Inox, or ou argent",img:"https://images.unsplash.com/photo-1615655114865-4cc0bda4373d?auto=format&fit=crop&w=900&q=82"},
+      {id:"bracelet-minimaliste",name:"Bracelet minimaliste",category:"Bracelets",desc:"Une pièce discrète, facile à porter au quotidien et adaptée aux petites gravures.",finish:"Finition dorée, argentée ou inox",img:"https://images.unsplash.com/photo-1619119069152-a2b331eb392a?auto=format&fit=crop&w=900&q=82"},
+      {id:"coffret-special",name:"Coffret occasion spéciale",category:"Coffrets",desc:"Une présentation cadeau pour anniversaire, fiançailles, diplôme ou surprise.",finish:"Personnalisation selon le bijou choisi",img:"https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=900&q=82"}
+    ];
+
+    const pages = document.querySelectorAll(".page");
+    const navLinks = document.getElementById("navLinks");
+    const menuToggle = document.getElementById("menuToggle");
+    const topBtn = document.getElementById("topBtn");
+
+    function closeMenu(){
+      navLinks.classList.remove("open");
+      menuToggle.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded","false");
+      document.body.classList.remove("menu-open");
+    }
+
+    function navigate(route, scrollTarget){
+      const page = document.getElementById(route);
+      if(!page) return;
+
+      pages.forEach(p => p.classList.remove("active"));
+      page.classList.add("active");
+
+      document.querySelectorAll(".nav-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.route === route);
+      });
+
+      closeMenu();
+      history.replaceState(null,"",`#${route}`);
+
+      if(scrollTarget){
+        setTimeout(() => {
+          const target = document.getElementById(scrollTarget);
+          if(target) target.scrollIntoView({behavior:"smooth", block:"start"});
+        },70);
+      }else{
+        window.scrollTo({top:0,behavior:"smooth"});
+      }
+
+      setTimeout(runReveal,120);
+    }
+
+    document.addEventListener("click", (event) => {
+      const trigger = event.target.closest("[data-route]");
+      if(trigger){
+        event.preventDefault();
+        navigate(trigger.dataset.route, trigger.dataset.scroll || null);
+      }
+      const scrollOnly = event.target.closest("[data-scroll]:not([data-route])");
+      if(scrollOnly){
+        const target = document.getElementById(scrollOnly.dataset.scroll);
+        if(target) target.scrollIntoView({behavior:"smooth", block:"start"});
+      }
+    });
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.classList.toggle("open", isOpen);
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      document.body.classList.toggle("menu-open", isOpen);
+    });
+
+    function getProductById(id){ return products.find(product => product.id === id); }
+
+    function renderProducts(filter = "Tous"){
+      const grid = document.getElementById("productGrid");
+      if(!grid) return;
+      const list = filter === "Tous" ? products : products.filter(product => product.category === filter);
+      grid.innerHTML = list.map(product => `
+        <article class="card product-card reveal visible">
+          <div class="product-img"><img src="${product.img}" alt="${product.name}"></div>
+          <div class="card-body">
+            <div class="product-meta"><span class="tag">${product.category}</span><span>Prix sur demande</span></div>
+            <h3>${product.name}</h3>
+            <p>${product.desc}</p>
+            <p><strong>Finition :</strong> ${product.finish}</p>
+            <button class="btn btn-dark" type="button" data-product="${product.id}">Personnaliser</button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    document.getElementById("filters").addEventListener("click", (event) => {
+      const btn = event.target.closest(".filter-btn");
+      if(!btn) return;
+      document.querySelectorAll(".filter-btn").forEach(item => item.classList.remove("active"));
+      btn.classList.add("active");
+      renderProducts(btn.dataset.filter);
+    });
+
+    const modal = document.getElementById("productModal");
+    const modalClose = document.getElementById("modalClose");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalImg = document.getElementById("modalImg");
+    const modalCategory = document.getElementById("modalCategory");
+    const modalDesc = document.getElementById("modalDesc");
+    const modalFinish = document.getElementById("modalFinish");
+    const modalOrder = document.getElementById("modalOrder");
+
+    document.addEventListener("click", (event) => {
+      const productBtn = event.target.closest("[data-product]");
+      if(!productBtn) return;
+      const product = getProductById(productBtn.dataset.product);
+      if(product) openProductModal(product);
+    });
+
+    function openProductModal(product){
+      modalTitle.textContent = product.name;
+      modalImg.src = product.img;
+      modalImg.alt = product.name;
+      modalCategory.textContent = product.category;
+      modalDesc.textContent = product.desc;
+      modalFinish.textContent = product.finish;
+      modalOrder.onclick = () => openWhatsapp(`Bonjour Biladi Jewellery, je souhaite commander ou personnaliser ce modèle : ${product.name}. Catégorie : ${product.category}. Finition souhaitée : ${product.finish}. Pouvez-vous me confirmer le prix, la disponibilité et le délai ?`);
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(){
+      modal.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+    modalClose.addEventListener("click", closeModal);
+    modal.addEventListener("click", event => { if(event.target === modal) closeModal(); });
+    document.addEventListener("keydown", event => { if(event.key === "Escape" && modal.classList.contains("active")) closeModal(); });
+
+    function openWhatsapp(message){
+      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,"_blank","noopener");
+    }
+
+    function value(id){ return document.getElementById(id).value.trim(); }
+    function showError(id, show){ document.getElementById(id).classList.toggle("show", show); }
+
+    const engravingText = document.getElementById("engravingText");
+    const previewText = document.getElementById("previewText");
+    engravingText.addEventListener("input", () => {
+      previewText.textContent = engravingText.value.trim() || "Votre gravure";
+    });
+
+    document.getElementById("engravingForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const data = {
+        type:value("engravingType"),
+        material:value("engravingMaterial"),
+        text:value("engravingText"),
+        occasion:value("engravingOccasion"),
+        city:value("engravingCity")
+      };
+      const invalid = Object.values(data).some(item => !item);
+      showError("engravingError", invalid);
+      if(invalid) return;
+      openWhatsapp(`Bonjour Biladi Jewellery, je souhaite faire une gravure personnalisée.\n\nType de bijou : ${data.type}\nMatière ou finition : ${data.material}\nTexte à graver : ${data.text}\nOccasion : ${data.occasion}\nVille de livraison : ${data.city}\n\nMerci de me confirmer le prix, la disponibilité et le délai.`);
+    });
+
+    document.getElementById("orderForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const data = {
+        name:value("orderName"),
+        phone:value("orderPhone"),
+        city:value("orderCity"),
+        type:value("orderType"),
+        material:value("orderMaterial"),
+        occasion:value("orderOccasion"),
+        delay:value("orderDelay"),
+        engraving:value("orderEngraving") || "Aucune gravure indiquée",
+        message:value("orderMessage") || "Aucune précision complémentaire"
+      };
+      const required = [data.name,data.phone,data.city,data.type,data.material,data.occasion,data.delay];
+      const invalid = required.some(item => !item);
+      showError("orderError", invalid);
+      document.getElementById("orderSuccess").classList.toggle("show", !invalid);
+      if(invalid) return;
+      openWhatsapp(`Bonjour Biladi Jewellery, je souhaite passer une commande.\n\nNom complet : ${data.name}\nTéléphone : ${data.phone}\nVille : ${data.city}\nType de bijou : ${data.type}\nMatière ou finition : ${data.material}\nTexte à graver : ${data.engraving}\nOccasion : ${data.occasion}\nDélai souhaité : ${data.delay}\nMessage complémentaire : ${data.message}\n\nMerci de me confirmer le prix, la disponibilité et les modalités de livraison.`);
+    });
+
+    document.querySelectorAll(".faq-q").forEach(button => {
+      button.addEventListener("click", () => {
+        const item = button.closest(".faq-item");
+        const answer = item.querySelector(".faq-a");
+        const icon = button.querySelector("span:last-child");
+        const open = answer.style.maxHeight;
+        document.querySelectorAll(".faq-a").forEach(a => a.style.maxHeight = null);
+        document.querySelectorAll(".faq-q span:last-child").forEach(i => i.textContent = "+");
+        if(!open){
+          answer.style.maxHeight = answer.scrollHeight + "px";
+          icon.textContent = "−";
+        }
+      });
+    });
+
+    const observer = "IntersectionObserver" in window ? new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:.12}) : null;
+
+    function runReveal(){
+      document.querySelectorAll(".page.active .reveal").forEach(el => {
+        if(observer){ observer.observe(el); }
+        else{ el.classList.add("visible"); }
+      });
+    }
+
+    window.addEventListener("scroll", () => {
+      topBtn.classList.toggle("show", window.scrollY > 520);
+    });
+    topBtn.addEventListener("click", () => window.scrollTo({top:0,behavior:"smooth"}));
+
+    renderProducts();
+    const initial = location.hash ? location.hash.replace("#","") : "accueil";
+    if(document.getElementById(initial)) navigate(initial);
+    else runReveal();
+  </script>
+</body>
+</html>
